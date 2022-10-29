@@ -9,8 +9,8 @@
   - [x] disc00
   - [x] hw01
  **[Week02](https://github.com/sscheng25/CS61A/tree/main/week02)**
-  - [] lecture 03/04/05
-  - [] lab01
-  - [] disc01
-  - [] hw02
+  - [ ] lecture 03/04/05
+  - [ ] lab01
+  - [ ] disc01
+  - [ ] hw02
   - [ ] project Hog
