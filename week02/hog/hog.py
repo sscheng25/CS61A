@@ -41,6 +41,10 @@ def free_bacon(score):
     assert score < 100, 'The game should be over.'
     # BEGIN PROBLEM 2
     "*** YOUR CODE HERE ***"
+    ten = score // 10
+    one = score - score // 10 * 10
+    bacon = 2 * ten - one
+    return max(bacon, 1)
     # END PROBLEM 2
 
 
@@ -59,6 +63,14 @@ def take_turn(num_rolls, opponent_score, dice=six_sided):
     assert opponent_score < 100, 'The game should be over.'
     # BEGIN PROBLEM 3
     "*** YOUR CODE HERE ***"
+    score = 0
+    if(num_rolls == 0):
+        score = free_bacon(opponent_score)
+    else:
+        while(num_rolls > 0):
+            score = score + dice
+            num_rolls = num_rolls - 1
+    return score
     # END PROBLEM 3
 
 
@@ -69,6 +81,14 @@ def is_swap(player_score, opponent_score):
     """
     # BEGIN PROBLEM 4
     "*** YOUR CODE HERE ***"
+    ten1 = player_score // 10
+    one1 = player_score - player_score // 10 * 10
+    value1 = abs(ten1 - one1)
+    ten2 = opponent_score // 10
+    one2 = opponent_score - opponent_score // 10 * 10
+    value2 = abs(ten2 - one2)
+
+    return (value1 == value2)
     # END PROBLEM 4
 
 
