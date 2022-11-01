@@ -16,6 +16,14 @@ def falling(n, k):
     """
     "*** YOUR CODE HERE ***"
 
+    result = 1
+    while(k > 0):
+        result = result * n
+        n = n - 1
+        k = k - 1
+    return result
+
+
 def double_eights(n):
     """Return true if n has two eights in a row.
     >>> double_eights(8)
@@ -32,6 +40,15 @@ def double_eights(n):
     False
     """
     "*** YOUR CODE HERE ***"
+    dig0 = 0
+    dig1 = n - n // 10 * 10
+    while (n > 0):
+       n = n // 10
+       dig0 = dig1
+       dig1 = n - n // 10 * 10
+       if(dig1 == 8 and dig0 == 8):
+        return True
+    return False 
 
 # Guessing Game
 
@@ -56,6 +73,11 @@ def guess_linear():
     num_guesses = 1
     guess = LOWER
     "*** YOUR CODE HERE ***"
+    correct = is_correct(guess)
+    while not correct:
+        guess = guess + 1
+        correct = is_correct(guess)
+        num_guesses = num_guesses + 1
     return num_guesses
 
 def guess_binary():
@@ -71,6 +93,15 @@ def guess_binary():
     lower, upper = LOWER, UPPER
     guess = (lower + upper) // 2
     "*** YOUR CODE HERE ***"
+    correct = is_correct(guess)
+    while not correct:
+        if(is_too_high(guess)):
+            upper = guess - 1
+        else:
+            lower = guess + 1
+        guess = (lower + upper) // 2
+        correct = is_correct(guess)
+        num_guesses = num_guesses + 1
     return num_guesses
 
 # Receive user input. You do not need to understand the code below this line.
