@@ -23,13 +23,20 @@ def roll_dice(num_rolls, dice=six_sided):
     # BEGIN PROBLEM 1
     "*** YOUR CODE HERE ***"
     sum = 0
+    is_one = False
     while(num_rolls > 0):
-        if(dice == 1):
-            return 1
+        dice_num = dice()
+        if(dice_num  == 1):
+            is_one = is_one or True
         else:
-            sum = sum + dice
+            sum = sum + dice_num 
+            is_one = is_one or False
         num_rolls = num_rolls - 1
-    return sum
+    
+    if is_one:
+        return 1
+    else:
+        return sum
     # END PROBLEM 1
 
 
@@ -67,9 +74,7 @@ def take_turn(num_rolls, opponent_score, dice=six_sided):
     if(num_rolls == 0):
         score = free_bacon(opponent_score)
     else:
-        while(num_rolls > 0):
-            score = score + dice
-            num_rolls = num_rolls - 1
+        score = roll_dice(num_rolls, dice)
     return score
     # END PROBLEM 3
 
@@ -81,6 +86,9 @@ def is_swap(player_score, opponent_score):
     """
     # BEGIN PROBLEM 4
     "*** YOUR CODE HERE ***"
+    player_score = player_score - player_score // 100 * 100
+    opponent_score = opponent_score - opponent_score // 100 * 100
+
     ten1 = player_score // 10
     one1 = player_score - player_score // 10 * 10
     value1 = abs(ten1 - one1)
@@ -128,6 +136,33 @@ def play(strategy0, strategy1, score0=0, score1=0, dice=six_sided,
     player = 0  # Which player is about to take a turn, 0 (first) or 1 (second)
     # BEGIN PROBLEM 5
     "*** YOUR CODE HERE ***"
+    while(score0 < goal and score1 < goal):
+        if(player == 0):
+            my_score = score0
+            op_score = score1
+            my_str = strategy0
+        else:
+            my_score = score1
+            op_score = score0
+            my_str = strategy1
+            
+        my_score = my_score + take_turn(my_str(my_score, op_score), op_score, dice)
+        if(is_swap(my_score, op_score)):
+            temp = my_score
+            my_score = op_score
+            op_score = temp
+        
+        if(player == 0):
+            score0 = my_score
+            score1 = op_score
+        else:
+            score1 = my_score
+            score0 = op_score
+        
+        say = say(score0, score1)
+        if(my_score >= goal):
+            return score0, score1
+        player = other(player)
     # END PROBLEM 5
     # (note that the indentation for the problem 6 prompt (***YOUR CODE HERE***) might be misleading)
     # BEGIN PROBLEM 6
