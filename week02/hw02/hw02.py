@@ -172,6 +172,14 @@ def make_repeater(f, n):
     5
     """
     "*** YOUR CODE HERE ***"
+    def fun(x):
+        i = 1
+        re = x
+        while(i <= n):
+            re = f(re)
+            i = i + 1
+        return re
+    return fun
 
 # Q5
 def zero(f):
@@ -183,10 +191,12 @@ def successor(n):
 def one(f):
     """Church numeral 1: same as successor(zero)"""
     "*** YOUR CODE HERE ***"
+    return lambda f: lambda x: f(zero(f)(x))
 
 def two(f):
     """Church numeral 2: same as successor(successor(zero))"""
     "*** YOUR CODE HERE ***"
+    return lambda f: lambda x: f(one(f)(x))
 
 three = successor(two)
 
@@ -203,6 +213,13 @@ def church_to_int(n):
     3
     """
     "*** YOUR CODE HERE ***"
+    def int():
+        i = i
+        re = one
+        while(i<=n):
+            re = successor(re)
+        return re
+    return int
 
 def add_church(m, n):
     """Return the Church numeral for m + n, for Church numerals m and n.
