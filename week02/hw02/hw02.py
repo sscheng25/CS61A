@@ -185,18 +185,30 @@ def make_repeater(f, n):
 def zero(f):
     return lambda x: x
 
+"""
+def zero(f):
+    def f(x):
+        return x
+    return f
+
+"""
+
 def successor(n):
     return lambda f: lambda x: f(n(f)(x))
 
 def one(f):
     """Church numeral 1: same as successor(zero)"""
     "*** YOUR CODE HERE ***"
-    return lambda f: lambda x: f(zero(f)(x))
+    def ret(x):
+        return f(x)
+    return ret
 
 def two(f):
     """Church numeral 2: same as successor(successor(zero))"""
     "*** YOUR CODE HERE ***"
-    return lambda f: lambda x: f(one(f)(x))
+    def ret(x):
+        return f(f(x))
+    return ret
 
 three = successor(two)
 
@@ -213,13 +225,10 @@ def church_to_int(n):
     3
     """
     "*** YOUR CODE HERE ***"
-    def int():
-        i = i
-        re = one
-        while(i<=n):
-            re = successor(re)
-        return re
-    return int
+    def increase(x):
+        return x + 1
+
+    return n(increase)(0)
 
 def add_church(m, n):
     """Return the Church numeral for m + n, for Church numerals m and n.
@@ -228,6 +237,11 @@ def add_church(m, n):
     5
     """
     "*** YOUR CODE HERE ***"
+    def ret(f):
+        def add(x):
+            return m(f)(x) + n(f)(x)
+        return add
+    return ret
 
 def mul_church(m, n):
     """Return the Church numeral for m * n, for Church numerals m and n.
@@ -239,6 +253,11 @@ def mul_church(m, n):
     12
     """
     "*** YOUR CODE HERE ***"
+    def ret(f):
+        def mul(x):
+            return m(f)(x) * n(f)(x)
+        return mul
+    return ret
 
 def pow_church(m, n):
     """Return the Church numeral m ** n, for Church numerals m and n.
@@ -249,3 +268,8 @@ def pow_church(m, n):
     9
     """
     "*** YOUR CODE HERE ***"
+    def ret(f):
+        def mul(x):
+            return m(f)(x) ** n(f)(x)
+        return mul
+    return ret
