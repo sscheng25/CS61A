@@ -10,8 +10,15 @@
   - [x] hw01
  
  **[Week02](https://github.com/sscheng25/CS61A/tree/main/week02)**
-  - [ ] lecture 03/04/05
+  - [x] lecture 03/04/05
   - [x] lab01
   - [x] disc01
-  - [ ] hw02
-  - [ ] project Hog
+  - [x] hw02
+  - [x] project Hog
+
+ **[Week03](https://github.com/sscheng25/CS61A/tree/main/week03)**
+  - [ ] lecture 06/07/08
+  - [ ] lab02
+  - [ ] disc02
+  - [ ] hw03
+
