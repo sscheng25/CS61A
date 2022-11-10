@@ -1,6 +1,7 @@
 # CS61A: Structure and Interpretation of Computer Programs
  - [Course Webpage](https://inst.eecs.berkeley.edu/~cs61a/fa18/)
  - [Text Book](http://composingprograms.com/)
+ - [MIT Structure and Interpretation of Computer Programs](https://web.mit.edu/6.001/6.037/sicp.pdf)
  
  ## Timeline
  **[Week01](https://github.com/sscheng25/CS61A/tree/main/week01)**
