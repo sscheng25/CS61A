@@ -35,6 +35,16 @@ def has_seven(k):
     True
     """
     "*** YOUR CODE HERE ***"
+    if(k < 10):
+        if(k == 7):
+            return True
+        else:
+            return False
+    else:
+        if(k%10 == 7):
+            return True
+        else:
+            return has_seven(k//10)
 
 def pingpong(n):
     """Return the nth element of the ping-pong sequence.
@@ -68,6 +78,26 @@ def pingpong(n):
     True
     """
     "*** YOUR CODE HERE ***"
+    """
+    i, sq, re = 1, 0, 0
+    while(i <= n):
+        re = re + (-1)**(sq)
+        if(has_seven(i) or i%7 == 0):
+            sq = sq + 1
+        i = i + 1
+    return re    
+    
+    """
+    def helper(i, result, step):
+        if(i == n):
+            return result
+        elif(has_seven(i) or i%7 == 0):
+            return helper(i+1, result - step, -step)
+        else:
+            return helper(i+1, result + step, step)
+
+    return helper(1, 1, 1)
+
 
 def accumulate(combiner, base, n, term):
     """Return the result of combining the first n terms in a sequence and base.
@@ -115,6 +145,10 @@ def filtered_accumulate(combiner, base, pred, n, term):
     """
     def combine_if(x, y):
         "*** YOUR CODE HERE ***"
+        if(pred(y)):
+            return combiner(x, y)
+        else:
+            return x
     return accumulate(combine_if, base, n, term)
 
 def odd(x):
