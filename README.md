@@ -20,5 +20,5 @@
  **[Week03](https://github.com/sscheng25/CS61A/tree/main/week03)**
   - [x] lecture 06/07/08 (Midterm 1 review)
   - [x] lab02
-  - [ ] hw03
+  - [x] hw03
 
