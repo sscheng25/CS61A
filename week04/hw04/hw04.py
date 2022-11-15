@@ -27,6 +27,7 @@ def taxicab(a, b):
     9
     """
     "*** YOUR CODE HERE ***"
+    return abs(street(a) - street(b)) + abs(avenue(a) - avenue(b))
 
 def squares(s):
     """Returns a new list containing square roots of the elements of the
@@ -40,6 +41,12 @@ def squares(s):
     []
     """
     "*** YOUR CODE HERE ***"
+    import math
+    sq = []
+    for i in s:
+        sq.append(math.sqrt(i))
+
+    return [int(x) for x in sq if x.is_integer()]
 
 def g(n):
     """Return the value of G(n), computed recursively.
@@ -59,6 +66,10 @@ def g(n):
     True
     """
     "*** YOUR CODE HERE ***"
+    if(n <= 3):
+        return n
+    else:
+        return g(n-1) + 2 * g(n-2) + 3 * g(n-3)
 
 def g_iter(n):
     """Return the value of G(n), computed iteratively.
@@ -78,6 +89,16 @@ def g_iter(n):
     True
     """
     "*** YOUR CODE HERE ***"
+    if(n<=3):
+        return n
+    else:
+        n_3, n_2, n_1 = 1, 2, 3
+        for i in range(4, n+1):
+            re = n_1 + 2* n_2 + 3*n_3
+            n_3 = n_2
+            n_2 = n_1
+            n_1 = re
+        return re
 
 def count_change(amount):
     """Return the number of ways to make change for amount.
@@ -95,6 +116,14 @@ def count_change(amount):
     True
     """
     "*** YOUR CODE HERE ***"
+    if(amount == 0):
+        return 0
+    elif(amount == 1):
+        return 1
+    elif(amount == 2):
+        return 2
+    else:
+        count_change(amount-2) + count_change(2)
 
 def print_move(origin, destination):
     """Print instructions to move a disk."""
