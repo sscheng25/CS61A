@@ -116,14 +116,37 @@ def count_change(amount):
     True
     """
     "*** YOUR CODE HERE ***"
+    def bi_helper(amount):
+        return format(amount, 'b')  
+    bi = int(bi_helper(amount))
+    # print(bi)
+
+    last, other = bi%10, bi//10
+    # print(last, other)
+
+    if(other == 0):
+        return last
+    elif(other == 1):
+        return last + 2
+    else:
+        val = int(str(other), 2)
+        return 2*count_change(val) + 1 + last
+
+    """
     if(amount == 0):
         return 0
     elif(amount == 1):
         return 1
     elif(amount == 2):
         return 2
+    elif():
+        return 
     else:
-        count_change(amount-2) + count_change(2)
+        return count_change(amount-1) + count_change(1)
+    
+    """
+
+   
 
 def print_move(origin, destination):
     """Print instructions to move a disk."""
