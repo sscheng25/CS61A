@@ -23,5 +23,5 @@
   - [x] hw03
 
  **[Week04](https://github.com/sscheng25/CS61A/tree/main/week04)**
-  - [ ] lecture 09/10
-  - [ ] hw04
+  - [x] lecture 09/10
+  - [x] hw04
