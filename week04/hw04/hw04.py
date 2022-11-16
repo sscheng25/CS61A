@@ -187,3 +187,7 @@ def make_anonymous_factorial():
     True
     """
     return 'YOUR_EXPRESSION_HERE'
+
+"""
+REFERENCE: https://giancarlo-ma.github.io/2018/10/07/cs61a-hw04/
+"""
