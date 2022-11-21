@@ -84,7 +84,8 @@ def create_row(size):
     ['-', '-', '-', '-', '-']
     """
     "*** YOUR CODE HERE ***"
-
+    x = ['-']
+    return x * size
 
 def create_board(rows, columns):
     """Returns a board with the given dimensions.
@@ -93,6 +94,8 @@ def create_board(rows, columns):
     [['-', '-', '-', '-', '-'], ['-', '-', '-', '-', '-'], ['-', '-', '-', '-', '-']]
     """
     "*** YOUR CODE HERE ***"
+    y = [create_row(columns)]
+    return y * rows
 
 
 def replace_elem(lst, index, elem):
@@ -108,6 +111,9 @@ def replace_elem(lst, index, elem):
     """
     assert index >= 0 and index < len(lst), 'Index is out of bounds'
     "*** YOUR CODE HERE ***"
+    new = lst.copy()
+    new[index] = elem
+    return new
 
 
 def get_piece(board, row, column):
@@ -123,6 +129,7 @@ def get_piece(board, row, column):
     '-'
     """
     "*** YOUR CODE HERE ***"
+    return board[row][column]
 
 
 def put_piece(board, max_rows, column, player):
@@ -146,6 +153,23 @@ def put_piece(board, max_rows, column, player):
     -1
     """
     "*** YOUR CODE HERE ***"
+    full = True
+    i = max_rows - 1
+    while(i>=0):
+        if(get_piece(board, i, column) == '-'):
+            board = replace_elem(board, i, replace_elem(board[i], column, player))
+            full = False
+            # print(new)
+            break
+        else:
+            i = i - 1
+    
+    if(full):
+        rn = -1
+    else:
+        rn = i
+    
+    return (rn, board)
 
 
 def make_move(board, max_rows, max_cols, col, player):
