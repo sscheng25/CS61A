@@ -84,3 +84,6 @@ def mean(s):
     # BEGIN Question 1
     "*** YOUR CODE HERE ***"
     # END Question 1
+    assert len(s)>0, "Length must be positive"
+    mean = sum(s)/len(s)
+    return mean

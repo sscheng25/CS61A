@@ -65,12 +65,14 @@ def make_restaurant(name, location, categories, price, reviews):
     # BEGIN Question 2
     "*** YOUR CODE HERE ***"
     # END Question 2
+    return [name, location, categories, price, reviews]
 
 def restaurant_name(restaurant):
     """Return the name of the restaurant, which is a string."""
     # BEGIN Question 2
     "*** YOUR CODE HERE ***"
     # END Question 2
+    return restaurant[0]
 
 def restaurant_location(restaurant):
     """Return the location of the restaurant, which is a list containing
@@ -78,18 +80,21 @@ def restaurant_location(restaurant):
     # BEGIN Question 2
     "*** YOUR CODE HERE ***"
     # END Question 2
+    return restaurant[1]
 
 def restaurant_categories(restaurant):
     """Return the categories of the restaurant, which is a list of strings."""
     # BEGIN Question 2
     "*** YOUR CODE HERE ***"
     # END Question 2
+    return restaurant[2]
 
 def restaurant_price(restaurant):
     """Return the price of the restaurant, which is a number."""
     # BEGIN Question 2
     "*** YOUR CODE HERE ***"
     # END Question 2
+    return restaurant[3]
 
 def restaurant_ratings(restaurant):
     """Return a list of ratings, which are numbers from 1 to 5, of the
@@ -97,3 +102,9 @@ def restaurant_ratings(restaurant):
     # BEGIN Question 2
     "*** YOUR CODE HERE ***"
     # END Question 2
+    res = restaurant[4]
+    result = [0]
+    for re in res:
+        result.append(review_rating(re))
+    result.pop(0)
+    return result
