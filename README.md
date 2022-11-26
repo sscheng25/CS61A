@@ -30,4 +30,4 @@
   - [x] lecture 11/12/13
   - [x] lab04
   - [ ] hw05
-  - [ ] project Maps
+  - [x] project Maps
