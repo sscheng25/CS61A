@@ -99,6 +99,10 @@ def replace_leaf(t, old, new):
     True
     """
     "*** YOUR CODE HERE ***"
+    if(is_leaf(t) and label(t) == old):
+        return tree(new)
+    return tree(label(t), [replace_leaf(b, old, new) for b in branches(t)])
+
 
 # Mobiles
 
@@ -145,11 +149,13 @@ def weight(size):
     """Construct a weight of some size."""
     assert size > 0
     "*** YOUR CODE HERE ***"
+    return ['weight', size]
 
 def size(w):
     """Select the size of a weight."""
     assert is_weight(w), 'must call size on a weight'
     "*** YOUR CODE HERE ***"
+    return w[1]
 
 def is_weight(w):
     """Whether w is a weight."""
@@ -198,6 +204,19 @@ def balanced(m):
     False
     """
     "*** YOUR CODE HERE ***"
+    if(total_weight(end(left(m)))* length(left(m)) != total_weight(end(right(m)))* length(right(m))):
+        return False
+    else:
+        if(is_mobile(end(right(m))) and is_mobile(end(left(m)))):
+            return True and balanced(end(right(m))) and balanced(end(left(m)))
+        elif(is_mobile(end(right(m)))):
+            return True and balanced(end(right(m)))
+        elif(is_mobile(end(left(m)))):
+            return True and balanced(end(left(m)))
+        else:
+            return True
+
+
 
 def totals_tree(m):
     """Return a tree representing the mobile with its total weight at the root.
@@ -225,6 +244,13 @@ def totals_tree(m):
           2
     """
     "*** YOUR CODE HERE ***"
+    # tree(label, branches=[])
+    # total_weight(m)
+    if(is_weight(m)):
+        return tree(size(m))
+    else:
+        return tree(total_weight(m), [totals_tree(end(x)) for x in [left(m), right(m)]])
+
 
 # Mutable functions in Python
 
@@ -249,6 +275,16 @@ def make_counter():
     5
     """
     "*** YOUR CODE HERE ***"
+    ls = ['start00', ]
+    def counter(str):
+        # ls = ['start00', ]
+        ls.append(str)
+        count = 0
+        for i in ls:
+            if(i == str):
+                count = count + 1     
+        return count
+    return counter
 
 def make_fib():
     """Returns a function that returns the next Fibonacci number
@@ -270,6 +306,17 @@ def make_fib():
     12
     """
     "*** YOUR CODE HERE ***"
+    ls = ['start', ]
+    def real_fib(num):
+        if(num <= 1):
+            return num
+        else:
+            return real_fib(num - 1) + real_fib(num - 2)
+    def fibbb():
+        ls.append('fib')
+        return real_fib(len(ls) - 2)
+    
+    return fibbb
 
 def make_withdraw(balance, password):
     """Return a password-protected withdraw function.
@@ -300,6 +347,32 @@ def make_withdraw(balance, password):
     True
     """
     "*** YOUR CODE HERE ***"
+    pw_lst = [password, ]
+
+    def withdraw(amount, pw):
+        nonlocal balance
+        pw_lst.append(pw)
+        wr_att = 0
+        wr_lst = ['start', ]
+        lock = False
+        for pw in pw_lst:
+            if(wr_att >= 3):
+                    lock = True
+            if(pw != pw_lst[0]):
+                wr_lst.append(pw)
+                wr_att = wr_att + 1
+
+        if(wr_att >= 3 and lock):
+            
+            return "Your account is locked. Attempts: ['{wr1}', '{wr2}', '{wr3}']".format(wr1 = wr_lst[1], wr2 = wr_lst[2], wr3 = wr_lst[3]) 
+        elif(pw != pw_lst[0]):
+            return 'Incorrect password'
+        elif(amount > balance):
+            return 'Insufficient funds'
+        else:
+            balance = balance - amount
+            return balance
+    return withdraw
 
 def make_joint(withdraw, old_password, new_password):
     """Return a password-protected withdraw function that has joint access to
@@ -340,6 +413,15 @@ def make_joint(withdraw, old_password, new_password):
     "Your account is locked. Attempts: ['my', 'secret', 'password']"
     """
     "*** YOUR CODE HERE ***"
+    try_old = withdraw(0, old_password)
+    if(type(try_old) == str):
+        return try_old
+    def joint_withdraw(amount, pw):
+        if(pw == new_password):
+            pw = old_password
+        return withdraw(amount, pw)            
+
+    return joint_withdraw
 
 # Generators
 
