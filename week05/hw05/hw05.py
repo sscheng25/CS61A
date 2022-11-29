@@ -461,6 +461,18 @@ def generate_paths(t, x):
     """
     "*** YOUR CODE HERE ***"
 
+    path = []
+    path.append(label(t))
+    # print(path)
+    if(label(t) == x):
+        yield path
+
+    for branch in branches(t):
+        # print(label(branch))
+        for p in generate_paths(branch, x):
+            yield path + p
+
+
 ###################
 # Extra Questions #
 ###################

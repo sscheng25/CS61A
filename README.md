@@ -31,3 +31,8 @@
   - [x] lab04
   - [ ] hw05
   - [x] project Maps
+
+ **[Week06](https://github.com/sscheng25/CS61A/tree/main/week06)**
+  - [ ] lecture 14/15/16
+  - [ ] lab05
+
