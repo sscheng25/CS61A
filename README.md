@@ -29,7 +29,7 @@
  **[Week05](https://github.com/sscheng25/CS61A/tree/main/week05)**
   - [x] lecture 11/12/13
   - [x] lab04
-  - [ ] hw05
+  - [x] hw05
   - [x] project Maps
 
  **[Week06](https://github.com/sscheng25/CS61A/tree/main/week06)**
