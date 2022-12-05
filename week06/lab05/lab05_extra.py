@@ -103,6 +103,10 @@ def sprout_leaves(t, vals):
           2
     """
     "*** YOUR CODE HERE ***"
+    if(is_leaf(t)):
+        return tree(label(t), [tree(val) for val in vals])
+    else:
+        return tree(label(t), [sprout_leaves(b, vals) for b in branches(t)])
 
 # Q7
 def add_trees(t1, t2):
@@ -141,3 +145,19 @@ def add_trees(t1, t2):
       5
     """
     "*** YOUR CODE HERE ***"
+    if not t1:
+      return t2
+    if not t2:
+      return t1
+
+    c1, c2 = branches(t1), branches(t2)
+    l1, l2 = len(c1), len(c2)
+
+    if(l1 < l2):
+      c1 += [None for _ in range(l1, l2)]
+    elif(l1 > l2):
+      c2 += [None for _ in range(l2, l1)]
+
+    return tree(label(t1) + label(t2), [add_trees(a, b) for a, b in zip(c1, c2)])
+    
+    

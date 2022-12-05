@@ -33,6 +33,12 @@
   - [x] project Maps
 
  **[Week06](https://github.com/sscheng25/CS61A/tree/main/week06)**
-  - [ ] lecture 14/15/16
-  - [ ] lab05
+  - [x] lecture 14/15/16
+  - [x] lab05
+
+ **[Week07](https://github.com/sscheng25/CS61A/tree/main/week07)**
+  - [ ] lecture 17/18/19
+  - [ ] lab06
+  - [ ] hw07
+  - [ ] project Ants
 
