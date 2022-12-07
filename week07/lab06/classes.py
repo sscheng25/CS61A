@@ -23,6 +23,9 @@ class Card(object):
         500
         """
         "*** YOUR CODE HERE ***"
+        self.name = name
+        self.attack = attack
+        self.defense = defense
 
     def power(self, other_card):
         """
@@ -42,6 +45,8 @@ class Card(object):
         50.0
         """
         "*** YOUR CODE HERE ***"
+        # pw = self.attack - other_card.defense / 2
+        return self.attack - other_card.defense / 2
 
 
     def effect(self, other_card, player, opponent):
@@ -80,6 +85,8 @@ class Player(object):
         self.deck = deck
         self.name = name
         "*** YOUR CODE HERE ***"
+        self.hand = deck.cards[0:5]
+        deck.cards = deck.cards[5:]
 
     def draw(self):
         """Draw a card from the player's deck and add it to their hand.
@@ -94,6 +101,8 @@ class Player(object):
         """
         assert not self.deck.is_empty(), 'Deck is empty!'
         "*** YOUR CODE HERE ***"
+        self.hand = self.hand + [self.deck.cards[0]]
+        self.deck.cards = self.deck.cards[1:]
 
     def play(self, card_index):
         """Remove and return a card from the player's hand at the given index.
@@ -110,6 +119,9 @@ class Player(object):
         2
         """
         "*** YOUR CODE HERE ***"
+        pl = self.hand[card_index]
+        self.hand.pop(card_index)
+        return pl
 
 
     def display_hand(self):
@@ -151,8 +163,10 @@ class TutorCard(Card):
         True
         """
         "*** YOUR CODE HERE ***"
+        opponent.hand = opponent.hand[3:5] + opponent.deck.cards[0:3]
+        opponent.deck.cards = opponent.deck.cards[3:]
         #Uncomment the line below when you've finished implementing this method!
-        #print('{} discarded and re-drew 3 cards!'.format(opponent.name))
+        print('{} discarded and re-drew 3 cards!'.format(opponent.name))
 
     def copy(self):
         """
@@ -177,6 +191,9 @@ class TACard(Card):
         300
         """
         "*** YOUR CODE HERE ***"
+        temp = other_card.defense
+        other_card.defense = other_card.attack
+        other_card.attack = temp
 
 
     def copy(self):
@@ -208,10 +225,21 @@ class ProfessorCard(Card):
         """
         orig_opponent_deck_length = len(opponent.deck.cards)
         "*** YOUR CODE HERE ***"
+        for card in player.deck.cards:
+            card.attack += other_card.attack
+            card.defense += other_card.defense
+        
+        drop_lst = list()
+        for i in range(len(opponent.deck.cards)):
+            if(opponent.deck.cards[i].attack == other_card.attack or opponent.deck.cards[i].defense == other_card.defense):
+                drop_lst.append(i)
+        drop_lst.reverse()
+        for i in drop_lst:
+            opponent.deck.cards.pop(i)
         discarded = orig_opponent_deck_length - len(opponent.deck.cards)
         if discarded:
             #Uncomment the line below when you've finished implementing this method!
-            #print('{} cards were discarded from {}\'s deck!'.format(discarded, opponent.name))
+            print('{} cards were discarded from {}\'s deck!'.format(discarded, opponent.name))
             return
 
     def copy(self):
