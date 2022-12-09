@@ -37,8 +37,8 @@
   - [x] lab05
 
  **[Week07](https://github.com/sscheng25/CS61A/tree/main/week07)**
-  - [ ] lecture 17/18/19
-  - [ ] lab06
-  - [ ] hw07
+  - [x] lecture 17/18/19
+  - [x] lab06
+  - [x] hw07
   - [ ] project Ants
 
