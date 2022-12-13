@@ -581,6 +581,10 @@ def make_slow(action, bee):
     """
     # BEGIN Problem EC
     "*** YOUR CODE HERE ***"
+    def slow_action(colony):
+        if(colony.time%2 == 0):
+            action(colony)
+    return slow_action
     # END Problem EC
 
 def make_scare(action, bee):
@@ -596,6 +600,25 @@ def apply_effect(effect, bee, duration):
     """Apply a status effect to a BEE that lasts for DURATION turns."""
     # BEGIN Problem EC
     "*** YOUR CODE HERE ***"
+    """
+    We need a counter here to count how many times the bee's action fucntion is called
+    
+    For the first [duration] times called, bee.action is effected,
+    for other calls, bee.action is the original one defined in Bee class
+    
+    """
+    turn = 0
+    old_action = bee.action
+    new_action = effect(bee.action, bee)
+    def action(colony):
+        nonlocal turn
+        if turn < duration:
+            new_action(colony)
+        else:
+            old_action(colony)
+        turn += 1
+    bee.action = action
+
     # END Problem EC
 
 
@@ -604,7 +627,8 @@ class SlowThrower(ThrowerAnt):
 
     name = 'Slow'
     # BEGIN Problem EC
-    implemented = False   # Change to True to view in the GUI
+    implemented = True   # Change to True to view in the GUI
+    food_cost = 4
     # END Problem EC
 
     def throw_at(self, target):
@@ -617,7 +641,8 @@ class ScaryThrower(ThrowerAnt):
 
     name = 'Scary'
     # BEGIN Problem EC
-    implemented = False   # Change to True to view in the GUI
+    implemented = True   # Change to True to view in the GUI
+    food_cost = 6
     # END Problem EC
 
     def throw_at(self, target):
