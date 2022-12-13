@@ -143,6 +143,8 @@ class Bee(Insect):
     damage = 1
     # OVERRIDE CLASS ATTRIBUTES HERE
     is_watersafe = True
+    scared = False
+    direction = 1
 
     def sting(self, ant):
         """Attack an ANT, reducing its armor by 1."""
@@ -169,6 +171,11 @@ class Bee(Insect):
         """
         destination = self.place.exit
         # Extra credit: Special handling for bee direction
+        if(self.direction == -1):
+            if(self.place.exit == colony.hive):
+                destination = self.place
+            else:
+                destination = self.place.entrance
         # BEGIN EC
         "*** YOUR CODE HERE ***"
         # END EC
@@ -594,6 +601,11 @@ def make_scare(action, bee):
     """
     # BEGIN Problem EC
     "*** YOUR CODE HERE ***"
+    def scare_action(colony):
+        bee.direction = -1
+        action(colony)
+
+    return scare_action
     # END Problem EC
 
 def apply_effect(effect, bee, duration):
@@ -615,6 +627,7 @@ def apply_effect(effect, bee, duration):
         if turn < duration:
             new_action(colony)
         else:
+            bee.direction = 1
             old_action(colony)
         turn += 1
     bee.action = action
@@ -648,6 +661,9 @@ class ScaryThrower(ThrowerAnt):
     def throw_at(self, target):
         # BEGIN Problem EC
         "*** YOUR CODE HERE ***"
+        if target and target.scared is False:
+            apply_effect(make_scare, target, 2)
+            target.scared = True
         # END Problem EC
 
 class LaserAnt(ThrowerAnt):
@@ -655,22 +671,36 @@ class LaserAnt(ThrowerAnt):
 
     name = 'Laser'
     # OVERRIDE CLASS ATTRIBUTES HERE
+    # damage = 2
     # BEGIN Problem OPTIONAL
     implemented = False   # Change to True to view in the GUI
+    food_cost = 10
     # END Problem OPTIONAL
 
     def __init__(self, armor=1):
         ThrowerAnt.__init__(self, armor)
         self.insects_shot = 0
+        self.battery = 0
 
     def insects_in_front(self, hive):
         # BEGIN Problem OPTIONAL
-        return {}
+        pl = self.place
+        dis = 0
+        insect_dict = {}
+        while(pl):
+            for bee in pl.bees:
+                insect_dict[bee] = dis
+            if(pl.ant and pl != self.place):
+                insect_dict[pl.ant] = dis
+            pl = pl.entrance
+            dis += 1
+        # print(insect_dict)
+        return insect_dict
         # END Problem OPTIONAL
 
     def calculate_damage(self, distance):
         # BEGIN Problem OPTIONAL
-        return 0
+        return 2 - 0.2 * distance -self.battery
         # END Problem OPTIONAL
 
     def action(self, colony):
@@ -680,6 +710,7 @@ class LaserAnt(ThrowerAnt):
             insect.reduce_armor(damage)
             if damage:
                 self.insects_shot += 1
+                self.battery = 0.05 * self.insects_shot
 
 
 ##################
