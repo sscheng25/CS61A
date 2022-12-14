@@ -11,6 +11,24 @@ def link_to_list(link):
     []
     """
     "*** YOUR CODE HERE ***"
+    """
+    # recursive solution
+    if(link is Link.empty):
+        return []
+    elif(link.rest is Link.empty):
+        return [link.first]
+    else:
+        return [link.first] + link_to_list(link.rest)    
+    
+    """
+    # iterative solution
+    lk = link
+    lst = []
+    while(lk is not Link.empty):
+        lst.append(lk.first)
+        lk = lk.rest
+    return lst
+
 
 # Q5
 def store_digits(n):
@@ -25,6 +43,13 @@ def store_digits(n):
     Link(8, Link(7, Link(6)))
     """
     "*** YOUR CODE HERE ***"
+    other, last = int(n/10), int(n%10)
+    rest = Link.empty
+    while(last):
+        rest = Link(last, rest)
+        last = int(other%10)
+        other = int(other/10)
+    return rest
 
 # Q6
 def cumulative_sum(t):
@@ -37,6 +62,14 @@ def cumulative_sum(t):
     Tree(16, [Tree(8, [Tree(5)]), Tree(7)])
     """
     "*** YOUR CODE HERE ***"
+    if(t.is_leaf() is False):
+
+        for br in t.branches:
+            cumulative_sum(br)
+        
+        t.label = t.label + sum([br.label for br in t.branches])
+
+
 
 # Q7
 def is_bst(t):
@@ -65,6 +98,58 @@ def is_bst(t):
     False
     """
     "*** YOUR CODE HERE ***"
+    def is_binary(tree):
+        if(tree.is_leaf()):
+            return True
+        if(len(tree.branches) > 2):
+            return False
+
+        for br in tree.branches:
+            if is_binary(br) is False:
+                return False
+        return True
+    
+    def bst_max(tree):
+        if(tree.is_leaf()):
+            return tree.label
+        max = tree.label
+
+        for br in tree.branches:
+            if(br.label > max):
+                max = br.label
+        for br in tree.branches:
+            if bst_max(br) > max:
+                max = bst_max(br)
+        return max
+
+    def bst_min(tree):
+        if(tree.is_leaf()):
+            return tree.label
+        min = tree.label
+
+        for br in tree.branches:
+            if(br.label < min):
+                min = br.label
+        for br in tree.branches:
+            if bst_min(br) < min:
+                min = bst_min(br)
+        return min
+        
+    
+    if(is_binary(t) == False):
+        return False
+    if(t.is_leaf()):
+        return True
+    elif(len(t.branches) == 1):
+        if(bst_min(t.branches[0]) < t.label and bst_max(t.branches[0]) > t.label):
+            return False
+        return is_bst(t.branches[0])
+    else:
+        if(bst_max(t.branches[0]) > t.label or bst_min(t.branches[1]) <= t.label):
+            return False
+        
+        return (is_bst(t.branches[0]) and is_bst(t.branches[1]))
+
 
 # Q8
 
@@ -86,6 +171,11 @@ def in_order_traversal(t):
     [4, 2, 6, 5, 7, 1, 3]
     """
     "*** YOUR CODE HERE ***"
+    if(t.is_leaf()):
+        return [t.label]
+    else:
+        return in_order_traversal(t.branches[0]) + [t.label] + in_order_traversal(t.branches[1])
+
 
 # Linked List Class
 class Link:
