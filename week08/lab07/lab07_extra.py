@@ -18,6 +18,13 @@ def remove_all(link , value):
     <0 1>
     """
     "*** YOUR CODE HERE ***"
+    if(link is Link.empty or link.rest is Link.empty):
+        return 
+    elif(link.rest.first == value):
+        link.rest = link.rest.rest
+        remove_all(link, value)
+    else:
+        remove_all(link.rest, value)
 
 # Q10
 def deep_map_mut(fn, link):
@@ -33,6 +40,14 @@ def deep_map_mut(fn, link):
     <9 <16> 25 36>
     """
     "*** YOUR CODE HERE ***"
+    if(link is Link.empty):
+        return 
+    else:
+        if(isinstance(link.first, Link)):
+            link.first = Link(link.first.first * link.first.first)
+        else:
+            link.first = link.first * link.first
+    deep_map_mut(fn, link.rest)
 
 # Q11
 def has_cycle(link):
@@ -50,6 +65,12 @@ def has_cycle(link):
     False
     """
     "*** YOUR CODE HERE ***"
+    test = link.rest
+    while(test is not Link.empty):
+        if(test == link):
+            return True
+        test = test.rest
+    return False
 
 def has_cycle_constant(link):
     """Return whether link contains a cycle.
@@ -63,6 +84,12 @@ def has_cycle_constant(link):
     False
     """
     "*** YOUR CODE HERE ***"
+    test = link.rest
+    while(test is not Link.empty):
+        if(test == link):
+            return True
+        test = test.rest
+    return False
 
 # Q12
 def reverse_other(t):
@@ -79,3 +106,18 @@ def reverse_other(t):
     Tree(1, [Tree(8, [Tree(3, [Tree(5), Tree(4)]), Tree(6, [Tree(7)])]), Tree(2)])
     """
     "*** YOUR CODE HERE ***"
+    depth = 0  # root as depth = 0
+    def reverse(t, depth):
+        if(t.is_leaf()):
+            return 
+        else:
+            if(depth%2 == 0):
+                l = len(t.branches)
+                for i in range(int(l/2)):
+                    temp = t.branches[i].label
+                    t.branches[i].label = t.branches[l-1-i].label
+                    t.branches[l-1-i].label = temp
+        # t_depth += 1
+        for br in t.branches:
+            reverse(br, depth + 1)
+    return reverse(t, depth)
