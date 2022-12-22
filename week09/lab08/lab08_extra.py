@@ -25,19 +25,33 @@ class Keyboard:
     >>> b2.times_pressed
     3
     """
+    dict = dict()
+    buttons = list()
 
     def __init__(self, *args):
         "*** YOUR CODE HERE ***"
+        for arg in args:
+            self.buttons.append(arg)
+            self.dict[arg.pos] = arg.key
 
     def press(self, info):
         """Takes in a position of the button pressed, and
         returns that button's output"""
         "*** YOUR CODE HERE ***"
+        if(info in self.dict.keys()):
+            self.buttons[info].times_pressed += 1
+            return self.dict[info]
+        return ''
 
     def typing(self, typing_input):
         """Takes in a list of positions of buttons pressed, and
         returns the total output"""
         "*** YOUR CODE HERE ***"
+        result = ''
+        for i in typing_input:
+            self.buttons[i].times_pressed += 1
+            result += self.dict[i]
+        return result
 
 class Button:
     def __init__(self, pos, key):
@@ -76,6 +90,25 @@ def make_advanced_counter_maker():
     1
     """
     "*** YOUR CODE HERE ***"
+    gcnt = 0
+    def count_helper():
+        cnt = 0
+        def counter(key):
+            nonlocal cnt
+            nonlocal gcnt           
+            if(key == 'count'):   
+                cnt += 1         
+                return cnt
+            if(key == 'global-count'):
+                gcnt += 1
+                return gcnt
+            if(key == 'reset'):
+                cnt = 0
+            if(key == 'global-reset'):
+                gcnt = 0
+
+        return counter
+    return count_helper
 
 # Lists
 def trade(first, second):
@@ -108,8 +141,20 @@ def trade(first, second):
     m, n = 1, 1
 
     "*** YOUR CODE HERE ***"
-
-    if False: # change this line!
+    lst = list()
+    for m in range(0, len(first)):
+        for n in range(0, len(second)):
+            if(sum(first[:m+1]) == sum(second[:n+1])):
+                m += 1
+                n += 1
+                lst.append([m, n])
+    min = 99999
+    for pair in lst:
+        if(pair[0] < min):
+            min = pair[0]
+            m, n = pair[0], pair[1]
+    
+    if((m == len(first) - 1 and n == len(second) - 1 and sum(first) != sum(second)) is False): # change this line!
         first[:m], second[:n] = second[:n], first[:m]
         return 'Deal!'
     else:
@@ -139,12 +184,12 @@ def permutations(seq):
     >>> sorted(permutations("ab"))
     [['a', 'b'], ['b', 'a']]
     """
-    if ____________________:
-        yield ____________________
+    if len(seq) == 1:
+        yield seq
     else:
-        for perm in _____________________:
-            for _____ in ________________:
-                _________________________
+        for perm in permutations([x for x in seq if x != seq[0]]):
+            for i in range(len(perm) + 1):
+                yield perm[:i] + [seq[0]] + perm[i:]
 
 # Recursive objects
 def make_to_string(front, mid, back, empty_repr):
@@ -163,6 +208,13 @@ def make_to_string(front, mid, back, empty_repr):
     '()'
     """
     "*** YOUR CODE HERE ***"
+    def format_link(lnk):
+        if(lnk is Link.empty):
+            return empty_repr
+        else:
+            return front + str(lnk.first) + mid + format_link(lnk.rest) + back
+
+    return format_link
 
 def tree_map(fn, t):
     """Maps the function fn over the entries of t and returns the
@@ -196,6 +248,11 @@ def tree_map(fn, t):
         8
     """
     "*** YOUR CODE HERE ***"
+    if t.is_leaf():
+        return Tree(fn(t.label))
+    else:
+        return Tree(fn(t.label), [tree_map(fn, br) for br in t.branches])
+
 
 def long_paths(tree, n):
     """Return a list of all paths in tree with length at least n.
@@ -227,6 +284,13 @@ def long_paths(tree, n):
     [Link(0, Link(11, Link(12, Link(13, Link(14)))))]
     """
     "*** YOUR CODE HERE ***"
+    paths = []
+    if n <= 0 and tree.is_leaf():
+        paths.append(Link(tree.label))
+    for b in tree.branches:
+        for path in long_paths(b, n - 1):
+            paths.append(Link(tree.label, path))
+    return paths
 
 # Orders of Growth
 def zap(n):

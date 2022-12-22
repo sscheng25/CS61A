@@ -69,7 +69,21 @@ def deep_len(lnk):
     5
     """
     "*** YOUR CODE HERE ***"
-
+    if(isinstance(lnk.first, Link)):
+        if(lnk.rest is Link.empty):
+            return deep_len(lnk.first)
+        elif(isinstance(lnk.rest, Link) is False):
+            return 1 + deep_len(lnk.first)
+        else:
+            return deep_len(lnk.rest) + deep_len(lnk.first)
+    else:
+        if(lnk.rest is Link.empty):
+            return 1
+        elif(isinstance(lnk.rest, Link) is False):
+            return 2
+        else:
+            return deep_len(lnk.rest) + 1
+    
 # Recursion/Tree Recursion
 
 def insert_into_all(item, nested_list):
@@ -82,6 +96,12 @@ def insert_into_all(item, nested_list):
     [[0], [0, 1, 2], [0, 3]]
     """
     "*** YOUR CODE HERE ***"
+    result = []
+    add = [item, ]
+    for i in nested_list:
+        result.append(add + i)
+    return result
+
 
 def subseqs(s):
     """Assuming that S is a list, return a nested list of all subsequences
@@ -94,6 +114,30 @@ def subseqs(s):
     [[]]
     """
     "*** YOUR CODE HERE ***"
+    """
+    result = [s]
+    
+    def minus(se):
+        if(len(se) == 1):
+            result.append(se)
+        else:
+            for i in range(len(se)):
+                m1 = se[:i] + se[i+1:]
+                result.append(m1)
+                minus(m1)
+    minus(s)
+    res = [[]]
+    [res.append(x) for x in result if x not in res] 
+    return res    
+    
+    """
+    if not s:
+        return [[]]
+    else:
+        subset = subseqs(s[1:])
+        return insert_into_all(s[0], subset) + subset
+
+
 
 def inc_subseqs(s):
     """Assuming that S is a list, return a nested list of all subsequences
@@ -111,11 +155,13 @@ def inc_subseqs(s):
     """
     def subseq_helper(s, prev):
         if not s:
-            return ____________________
+            return [[]]
         elif s[0] < prev:
-            return ____________________
+            return subseq_helper(s[1:], prev)
         else:
-            a = ______________________
-            b = ______________________
-            return insert_into_all(________, ______________) + ________________
-    return subseq_helper(____, ____)
+            a = subseq_helper(s[1:], s[0])
+            b = subseq_helper(s[1:], prev)
+            return insert_into_all(s[0], a) + b
+    return subseq_helper(s, 0)
+
+
