@@ -2,6 +2,7 @@
  - [Course Webpage](https://inst.eecs.berkeley.edu/~cs61a/fa18/)
  - [Text Book](http://composingprograms.com/)
  - [MIT Structure and Interpretation of Computer Programs](https://web.mit.edu/6.001/6.037/sicp.pdf)
+ - [Scheme interpreter](https://code.cs61a.org/)
  
  ## Timeline
  **[Week01](https://github.com/sscheng25/CS61A/tree/main/week01)**
@@ -47,7 +48,11 @@
   - [x] lab07
 
  **[Week09](https://github.com/sscheng25/CS61A/tree/main/week09)**
-  - [ ] lecture 23/24
-  - [ ] lab08
+  - [x] lecture 23/24
+  - [x] lab08
   - [ ] hw07
 
+ **[Week10](https://github.com/sscheng25/CS61A/tree/main/week10)**
+  - [ ] lecture 25/26/27
+  - [ ] lab09
+  - [ ] hw08

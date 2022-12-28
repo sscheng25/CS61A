@@ -2,32 +2,59 @@
   (cdr (cdr s)))
 
 (define (cadr s)
-  'YOUR-CODE-HERE
+  (car (cdr s))
 )
 
 (define (caddr s)
-  'YOUR-CODE-HERE
+  (car (cdr (cdr s)))
 )
 
 (define (sign x)
-  'YOUR-CODE-HERE
+  (cond
+      ((< x 0) -1)
+      ((= x 0) 0)
+      ((> x 0) 1))
 )
 
 (define (square x) (* x x))
 
 (define (pow b n)
-  'YOUR-CODE-HERE
+  (cond
+      ((= n 1) b)
+      ((= n 2) (square b))
+      (else
+          (if (even? n) 
+              (square (pow b (quotient n 2)))
+              (* b (* (pow b (quotient (- n 1) 2)) (pow b (quotient (- n 1) 2))))
+          )
+      ) 
+  )
 )
 
 (define (ordered? s)
-  'YOUR-CODE-HERE
+  (if (or (null? (cdr s)) (null? s))
+      true
+      (if (> (car s) (car (cdr s)))
+          false
+          (ordered? (cdr s)))
+      
+  )
 )
 
 (define (empty? s) (null? s))
 
 (define (add s v)
-    'YOUR-CODE-HERE
+    (if (empty? s)
+        (list v)
+        (if (= (car s) v)
+            s
+            (if (> (car s) v)
+                (cons v s)
+                (cons (car s) (add (cdr s) v))
+            )
+        )
     )
+)
 
 ; Sets as sorted lists
 (define (contains? s v)
