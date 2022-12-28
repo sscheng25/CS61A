@@ -3,17 +3,27 @@
 
 ; Q5
 (define lst
-  'YOUR-CODE-HERE
+  (cons (cons 1 nil)
+        (cons 2
+              (cons (cons 3 (cons 4 nil))
+                    (cons 5 nil))))
 )
 
 ; Q6
 (define (composed f g)
-  'YOUR-CODE-HERE
+    (define (helper x) (f (g x)))
+    helper
 )
 
 ; Q7
 (define (remove item lst)
-  'YOUR-CODE-HERE
+  (if (null? lst)
+      ()
+      (if (= item (car lst))
+          (remove item (cdr lst))
+          (cons (car lst) (remove item (cdr lst)))
+      )
+  )
 )
 
 
@@ -27,7 +37,12 @@
 
 ; Q8
 (define (no-repeats s)
-  'YOUR-CODE-HERE
+    (if (null? s)
+        ()
+        (
+         cons (car s) (no-repeats (remove (car s) (cdr s)))
+        )
+    )
 )
 
 ; Q9
@@ -39,3 +54,5 @@
 (define (sub-all s olds news)
   'YOUR-CODE-HERE
 )
+
+ ; (cons (cons 1 nil) (cons 2  (cons (cons 3 (cons 4 nil))  (cons 5 nil))))
