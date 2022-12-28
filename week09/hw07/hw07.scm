@@ -58,8 +58,17 @@
 
 ; Sets as sorted lists
 (define (contains? s v)
-    'YOUR-CODE-HERE
+    (if (empty? s)
+        false
+        (if (> (car s) v)
+            false
+            (if (= (car s) v)
+                true
+                (contains? (cdr s) v)
+            )     
+        )
     )
+)
 
 ; Equivalent Python code, for your reference:
 ;
@@ -77,8 +86,15 @@
 ;         return contains(s.rest, v)
 
 (define (intersect s t)
-    'YOUR-CODE-HERE
+    (if (or (empty? s) (empty? t))
+        (list)
+        (cond
+            ((= (car s) (car t)) (cons (car s) (intersect (cdr s) (cdr t))))
+            ((< (car s) (car t)) (intersect (cdr s) t))
+            (else (intersect s (cdr t)))
+        )
     )
+  )
 
 ; Equivalent Python code, for your reference:
 ;
@@ -95,5 +111,29 @@
 ;             return intersect(set1, set2.rest)
 
 (define (union s t)
-    'YOUR-CODE-HERE
+    (cond
+      ((empty? s) t)
+      ((empty? t) s)
+      (else
+          (cond
+              ((= (car s) (car t)) (cons (car s) (union (cdr s) (cdr t))))
+              ((< (car s) (car t)) (cons (car s) (union (cdr s) t)))
+              (else (cons (car t) (union s (cdr t))))
+          )
+      )
     )
+)
+
+; def union(s1, s2):
+;     if(empty(s1)):
+;         return s2
+;     elif(empty(s2)):
+;         return s1
+;     else:
+;         e1, e2 = set1.first, set2.first
+;         if e1 == e2:
+;             return Link(e1, union(set1.rest, set2.rest))
+;         elif e1 < e2:
+;             return Link(e1, union(set1.rest, set2))
+;         elif e2 < e1:
+;             return Link(e2, union(set1, set2.rest))
