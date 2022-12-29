@@ -50,9 +50,9 @@
  **[Week09](https://github.com/sscheng25/CS61A/tree/main/week09)**
   - [x] lecture 23/24
   - [x] lab08
-  - [ ] hw07
+  - [x] hw07
 
  **[Week10](https://github.com/sscheng25/CS61A/tree/main/week10)**
   - [ ] lecture 25/26/27
-  - [ ] lab09
+  - [x] lab09
   - [ ] hw08
