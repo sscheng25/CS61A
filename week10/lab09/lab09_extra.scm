@@ -47,12 +47,28 @@
 
 ; Q9
 (define (substitute s old new)
-  'YOUR-CODE-HERE
+    (if (null? s)
+        ()
+        (if (pair? (car s))
+            (cons (substitute (car s) old new) (substitute (cdr s) old new))
+            (if (eq? (car s) old)
+                (cons new (substitute (cdr s) old new))
+                (cons (car s) (substitute (cdr s) old new))
+            )
+        )
+    )
 )
 
 ; Q10
 (define (sub-all s olds news)
-  'YOUR-CODE-HERE
+    (if (null? s)
+        ()
+        (if (null? news)
+            s
+            (sub-all (substitute s (car olds) (car news)) (cdr olds) (cdr news))
+        )
+    
+    )
 )
 
- ; (cons (cons 1 nil) (cons 2  (cons (cons 3 (cons 4 nil))  (cons 5 nil))))
+; (cons (cons 1 nil) (cons 2  (cons (cons 3 (cons 4 nil))  (cons 5 nil))))

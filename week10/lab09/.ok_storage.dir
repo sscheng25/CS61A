@@ -4,3 +4,5 @@
 'composed-correct', (1536, 70)
 'remove-correct', (2048, 70)
 'no-repeats-correct', (2560, 70)
+'substitute-correct', (3072, 70)
+'sub-all-correct', (3584, 70)
