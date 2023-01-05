@@ -53,6 +53,12 @@
   - [x] hw07
 
  **[Week10](https://github.com/sscheng25/CS61A/tree/main/week10)**
-  - [ ] lecture 25/26/27
+  - [x] lecture 25/26/27
   - [x] lab09
   - [ ] hw08
+
+ **[Week11](https://github.com/sscheng25/CS61A/tree/main/week11)**
+  - [ ] lecture 28/29/30
+  - [ ] lab10
+  - [ ] hw09
+  - [ ] project Scheme

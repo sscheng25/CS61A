@@ -1,9 +1,66 @@
+; Q1: Reverse
+
 (define (reverse lst)
-    'YOUR-CODE-HERE
+    (if (null? lst)
+        ()
+        (if (null? (cdr lst))
+            ;(cons (car (cdr lst)) (car lst))
+            lst
+            (append (reverse (cdr lst)) (list (car lst)))
+        )
+    )
 )
+
+; Q2: Longest increasing subsequence
+
 (define (longest-increasing-subsequence lst)
-    'YOUR-CODE-HERE
+    (define (helper ls prev)
+        (cond
+            ((null? ls) nil)
+            ((<= (car ls) prev) (helper (cdr ls) prev))
+            (else
+              
+                (define first (append (list (car ls)) (helper (cdr ls) (car ls)) ))
+                (define no-first (helper (cdr ls) prev) )
+                (
+                  if (> (length first) (length no-first))
+                     first
+                     no-first
+                )
+
+              
+              
+            )
+
+        )
+    )
+
+    (helper lst 0)
 )
+
+
+; a wrong version, didn't find the bug, full of headache
+(define (longest-increasing-subsequence lst)
+    (define f-lst (filter (lambda (x) (> x (car lst))) lst) )
+    (if (null? lst)
+        ()
+        (if (null? (cdr lst))
+            lst
+            (
+             (if (= (length f-lst) 0)
+                (list (car lst))
+                (if (= (length f-lst) 1)
+                    (append (list (car lst)) f-lst)
+                    (append (list (car lst)) (longest-increasing-subsequence f-lst) )
+
+                )
+             
+             )
+            )
+        )
+    )
+)
+
 
 (define (cadr s) (car (cdr s)))
 (define (caddr s) (cadr (cdr s)))
@@ -12,8 +69,8 @@
 ; derive returns the derivative of EXPR with respect to VAR
 (define (derive expr var)
   (cond ((number? expr) 0)
-        ((variable? expr) (if (same-variable? expr var) 1 0))
-        ((sum? expr) (derive-sum expr var))
+        ((variable? expr) (if (same-variable? expr var) 1 0))     ; 'li is a symbol/variable
+        ((sum? expr) (derive-sum expr var))                       ; (list '+ 1 3 3) is true for sum?
         ((product? expr) (derive-product expr var))
         ((exp? expr) (derive-exp expr var))
         (else 'Error)))
@@ -51,33 +108,49 @@
 (define (multiplicand p) (caddr p))
 
 (define (derive-sum expr var)
-  'YOUR-CODE-HERE
+    (make-sum 
+        (derive (addend expr) var)
+        (derive (augend expr) var)
+    )
 )
 
 (define (derive-product expr var)
-  'YOUR-CODE-HERE
+    (make-sum
+        (make-product (derive (multiplier expr) var) (multiplicand expr))
+        (make-product (derive (multiplicand expr) var) (multiplier expr))
+    )
 )
 
 ; Exponentiations are represented as lists that start with ^.
 (define (make-exp base exponent)
-  'YOUR-CODE-HERE
+    (cond
+        ((= exponent 0) 1)
+        ((= exponent 1) base)
+        ((number? base) (* base (make-exp base (- exponent 1))))
+        (else (list '^ base exponent))
+    )
 )
 
 (define (base exp)
-  'YOUR-CODE-HERE
+   (cadr exp)
 )
 
 (define (exponent exp)
-  'YOUR-CODE-HERE
+   (caddr exp)
 )
 
 (define (exp? exp)
-  'YOUR-CODE-HERE
+    (and (list? exp) (eq? (car exp) '^))
+    ; (and (number? (exponent exp))(> (exponent exp) 0))
+   
 )
 
 (define x^2 (make-exp 'x 2))
 (define x^3 (make-exp 'x 3))
 
 (define (derive-exp exp var)
-  'YOUR-CODE-HERE
+    (make-product
+        (exponent exp)
+        (make-exp (base exp) (- (exponent exp) 1))
+    )
 )
