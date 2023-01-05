@@ -55,7 +55,7 @@
  **[Week10](https://github.com/sscheng25/CS61A/tree/main/week10)**
   - [x] lecture 25/26/27
   - [x] lab09
-  - [ ] hw08
+  - [x] hw08
 
  **[Week11](https://github.com/sscheng25/CS61A/tree/main/week11)**
   - [ ] lecture 28/29/30
