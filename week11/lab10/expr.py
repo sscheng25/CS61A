@@ -111,6 +111,12 @@ class Name(Expr):
         """
         "*** YOUR CODE HERE ***"
 
+        if self.string in list(env.keys()):
+            return env[self.string]
+        else:
+            raise NameError('Name Error')        
+
+
     def __str__(self):
         return self.string
 
@@ -176,6 +182,21 @@ class CallExpr(Expr):
         Number(14)
         """
         "*** YOUR CODE HERE ***"
+        """
+        return self.operator.string
+        for i in self.operands:
+            if(isinstance(i, Literal)):
+                print(i.value)
+            elif(isinstance(i, Name)):
+                print(i.string)
+            else:
+                print(0)        
+        """
+        operator = self.operator.eval(env)
+        operands = [operand.eval(env) for operand in self.operands]
+        return operator.apply(operands)
+
+
 
     def __str__(self):
         function = str(self.operator)
@@ -286,6 +307,16 @@ class LambdaFunction(Value):
             raise TypeError("Cannot match parameters {} to arguments {}".format(
                 comma_separated(self.parameters), comma_separated(arguments)))
         "*** YOUR CODE HERE ***"
+        # print(self.parameters)        # ['x', 'y']
+        # print(self.body)              # add(x, y)
+        # print(self.parent)    
+        test = zip(self.parameters, arguments)
+        vals = dict(test)
+        env = self.parent.copy()
+        env.update(vals)
+
+        return self.body.eval(env)
+
 
     def __str__(self):
         definition = LambdaExpr(self.parameters, self.body)

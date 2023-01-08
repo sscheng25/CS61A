@@ -59,6 +59,6 @@
 
  **[Week11](https://github.com/sscheng25/CS61A/tree/main/week11)**
   - [ ] lecture 28/29/30
-  - [ ] lab10
+  - [x] lab10
   - [ ] hw09
   - [ ] project Scheme
